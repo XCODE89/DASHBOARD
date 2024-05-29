@@ -1,9 +1,10 @@
 import Error404 from '../../containers/errors/Error404'
 import Home from '../../containers/pages/Home'
+import Dashboard from '../../containers/pages/Dashboard'
 // import Cases from './containers/pages/Cases'
 // import Services from './containers/pages/Services'
 // import About from './containers/pages/About'
-// import Blog from './containers/pages/Blog'
+import Blog from '../../containers/pages/blog/Blog'
 // import Careers from './containers/pages/Careers'
 // import Contact from './containers/pages/Contact'
 // import Category from './containers/pages/Category'
@@ -15,6 +16,8 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import { AnimatePresence } from "framer-motion"
 
 import React from 'react'
+import ResetPassword from '../../containers/auth/ResetPassword'
+import ResetPasswordConfirm from '../../containers/auth/ResetPasswordConfirm'
 
 const AllRoutes = () => {
     const location = useLocation()
@@ -24,10 +27,13 @@ const AllRoutes = () => {
             <Routes location={location} key={location.pathname}>
                 <Route path='*' element={<Error404/>}/>
                 <Route path='/' element={<Home/>}/>
+                <Route path='/blog' element={<Blog/>}/>
+                <Route path='/dashboard' element={<Dashboard/>}/>
+                <Route path='/forgot_password' element={<ResetPassword/>}/>
+                <Route path='/password/reset/confirm/:uid/:token' element={<ResetPasswordConfirm/>}/>
                 {/* <Route path='/casos' element={<Cases/>}/>
                 <Route path='/servicios' element={<Services/>}/>
                 <Route path='/nosotros' element={<About/>}/>
-                <Route path='/blog' element={<Blog/>}/>
                 <Route path='/carreras' element={<Careers/>}/>
                 <Route path='/category/:slug' element={<Category/>}/>
                 <Route path='/search/:term' element={<Search/>}/>
