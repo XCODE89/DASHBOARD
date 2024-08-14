@@ -18,6 +18,7 @@ import { AnimatePresence } from "framer-motion"
 import React from 'react'
 import ResetPassword from '../../containers/auth/ResetPassword'
 import ResetPasswordConfirm from '../../containers/auth/ResetPasswordConfirm'
+import EditPost from '../../containers/pages/blog/EditPost'
 
 const AllRoutes = () => {
     const location = useLocation()
@@ -28,6 +29,7 @@ const AllRoutes = () => {
                 <Route path='*' element={<Error404/>}/>
                 <Route path='/' element={<Home/>}/>
                 <Route path='/blog' element={<Blog/>}/>
+                <Route path='/blog/:slug' element={<EditPost/>}/>
                 <Route path='/dashboard' element={<Dashboard/>}/>
                 <Route path='/forgot_password' element={<ResetPassword/>}/>
                 <Route path='/password/reset/confirm/:uid/:token' element={<ResetPasswordConfirm/>}/>

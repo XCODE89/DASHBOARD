@@ -1,18 +1,29 @@
 import axios from "axios"
-// import BlogList from "components/blog/BlogList"
+import BlogList from "../../../components/blog/BlogList"
 import Layout from "../../../hocs/layout/Layout"
 import { useEffect } from "react"
 import { Helmet } from "react-helmet-async"
 import { connect } from "react-redux"
-// import { get_author_blog_list, get_author_blog_list_page } from "redux/actions/blog/blog"
-// import { get_categories } from "redux/actions/categories/categories"
+import { get_author_blog_list, get_author_blog_list_page } from "../../../redux/actions/blog/blog"
+import { get_categories } from "../../../redux/actions/categories/categories"
 
-const Blog = () => {
+const apiUrl = import.meta.env.VITE_APP_API_URL;
 
-    // useEffect(()=>{
-    //     get_author_blog_list()
-    //     get_categories()
-    // },[])
+const Blog = ({
+    get_author_blog_list,
+    get_author_blog_list_page,
+    posts,
+    count,
+    next,
+    previous,
+    get_categories,
+    categories
+}) => {
+
+    useEffect(()=>{
+        get_author_blog_list()
+        get_categories()
+    },[])
 
     return(
         <Layout>
@@ -48,7 +59,7 @@ const Blog = () => {
                 </p>
                 </div>
                 <div className="ml-4 mt-4 flex-shrink-0">
-                {/* <button
+                <button
                     onClick={()=>{
                         const config = {
                             headers: {
@@ -64,7 +75,7 @@ const Blog = () => {
 
                         const fetchData = async()=>{
                             try{
-                                const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/blog/create`,body,config)
+                                const res = await axios.post(`${apiUrl}/api/blog/create`,body,config)
                             
                                 if(res.status === 200){
                                     get_author_blog_list()
@@ -78,16 +89,29 @@ const Blog = () => {
                     className="relative inline-flex items-center rounded-md border border-transparent bg-orange-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2"
                 >
                     Create Post
-                </button> */}
+                </button>
                 </div>
             </div>
             </div>
-            {/* <BlogList 
+            {console.log("posts", posts)}
+            <BlogList 
             posts={posts&&posts} 
             get_blog_list_page={get_author_blog_list_page} 
-            count={count&&count}/> */}
+            count={count&&count}/>
         </Layout>
     )
 }
 
-export default Blog
+const mapStateToProps=state=>({
+    posts: state.blog.author_blog_list,
+    categories: state.categories.categories,
+    count: state.blog.count,
+    next: state.blog.next,
+    previous: state.blog.previous,
+})
+
+export default connect(mapStateToProps,{
+    get_author_blog_list,
+    get_author_blog_list_page,
+    get_categories
+}) (Blog)

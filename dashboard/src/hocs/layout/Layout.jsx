@@ -20,7 +20,6 @@ const Layout = ({
 }) => {
 
     useEffect(()=>{
-
         refresh()
         check_authenticated()
         load_user()
